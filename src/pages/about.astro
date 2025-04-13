@@ -1,7 +1,5 @@
 ---
-import Header from '../components/Navigation.astro';
-import Footer from '../components/Footer.astro';
-import '../styles/global.css';
+import BaseLayout from '../layouts/BaseLayout.astro';
 
 const pageTitle = "Обо мне";
 
@@ -30,7 +28,7 @@ const textCase = "uppercase";
 		<meta name="viewport" content="width=device-width" />
 		<meta name="generator" content={Astro.generator} />
 		<title>{pageTitle}</title>
-        <style define:vars={{skillColor, fontWeight, textCase}}>
+        <style is:global define:vars={{skillColor, fontWeight, textCase}}>
             h1 {
                 color: purple;
                 font-size: 4rem;
@@ -44,33 +42,29 @@ const textCase = "uppercase";
         </style>
 	</head>
 	<body>
-        <Header />
-		<h1>{pageTitle}</h1>
-        <h2>... и моем новом сайте на Astro!</h2>
+        <BaseLayout pageTitle={pageTitle}>
+            <h2>... и моем новом сайте на Astro!</h2>
 
-        <p>Я прохожу вводный учебник по Astro. Это вторая страница моего сайта, и это первая страница, которую я создал самостоятельно!</p>
+            <p>Я прохожу вводный учебник по Astro. Это вторая страница моего сайта, и это первая страница, которую я создал самостоятельно!</p>
 
-        <p>Сайт будет обновляться по мере прохождения учебника, так что заходите сюда снова и следите за моим прогрессом!</p>
-	
-        <p>Несколько фактов обо мне:</p>
-        <ul>
-            <li>Меня зовут {identity.firstName}.</li>
-            <li>Моя страна — {identity.country}, а род занятий — {identity.occupation}.</li>
-            {identity.hobbies.length >= 2 &&
-                <li>Два моих увлечения: {identity.hobbies[0]} и {identity.hobbies[1]}</li>
-            }
-        </ul>
-        <p>Мои навыки:</p>
-        <ul>
-            {skills.map((skill) => <li class="skill">{skill}</li>)}
-        </ul>
+            <p>Сайт будет обновляться по мере прохождения учебника, так что заходите сюда снова и следите за моим прогрессом!</p>
+        
+            <p>Несколько фактов обо мне:</p>
+            <ul>
+                <li>Меня зовут {identity.firstName}.</li>
+                <li>Моя страна — {identity.country}, а род занятий — {identity.occupation}.</li>
+                {identity.hobbies.length >= 2 &&
+                    <li>Два моих увлечения: {identity.hobbies[0]} и {identity.hobbies[1]}</li>
+                }
+            </ul>
+            <p>Мои навыки:</p>
+            <ul>
+                {skills.map((skill) => <li class="skill">{skill}</li>)}
+            </ul>
 
-        {happy && <p>Я рад(а) изучать Astro!</p>}
-        {finished && <p>Я завершил(а) это руководство!</p>}
-        {goal === 3 ? <p>Моя цель — завершить за 3 дня.</p> : <p>Моя цель — не 3 дня.</p>}
-        <Footer />
-        <script>
-			import "../scripts/menu.js";
-		</script>
+            {happy && <p>Я рад(а) изучать Astro!</p>}
+            {finished && <p>Я завершил(а) это руководство!</p>}
+            {goal === 3 ? <p>Моя цель — завершить за 3 дня.</p> : <p>Моя цель — не 3 дня.</p>}
+        </BaseLayout>
     </body>
 </html>
